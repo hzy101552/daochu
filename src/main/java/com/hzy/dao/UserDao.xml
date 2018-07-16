@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzy.dao.UserDao">
+	<resultMap id="BaseResultMap" type="User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="VARCHAR" />
+		<result column="date" property="date" jdbcType="DATE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getUserForExcel" resultMap="BaseResultMap"
+		parameterType="com.hzy.pojo.User">
+
+		select name,sex,age
+		from user
+		where 1=1 and
+		<if test="name != null and name !=''">and name=#{name}</if>
+		<if test="sex != null and sex !=''">and sex=#{sex}</if>
+		<if test="age != null and age !=''">and age=#{age}</if>
+	</select>
+
+	<select id="getUser" resultMap="BaseResultMap">
+		select *
+		from user
+	</select>
+	
+	<select id="getUserFor" resultMap="BaseResultMap">
+		select *
+		from user
+	</select>
+
+	<insert id="addUser" parameterType="com.hzy.pojo.User">
+	insert into user(name,sex,age,date,address)
+	values(#{name},#{sex},#{age},#{date},#{address})
+	</insert>
+
+</mapper>
